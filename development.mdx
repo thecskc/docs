@@ -1,107 +1,87 @@
 ---
-title: 'Development'
-description: 'Preview changes locally to update your docs'
+title: "Security and Privacy"
 ---
 
-<Info>
-  **Prerequisite**: Please install Node.js (version 19 or higher) before proceeding. <br />
-  Please upgrade to ```docs.json``` before proceeding and delete the legacy ```mint.json``` file.
-</Info>
+## Overview
 
-Follow these steps to install and run Mintlify on your operating system:
+We're committed to doing our best to protect your information while bringing through the benefits of an agentic solution for customer success.
 
-**Step 1**: Install Mintlify:
+Here are the measures we are tracking and their implementation status:
 
-<CodeGroup>
+### Policies [Live]
 
-  ```bash npm
-  npm i -g mintlify
-  ```
+These are the policies outlined in the Privacy Policy and Terms of Service. We are fully committed to doing our absolute best to enforce these protections and maintain the highest level of privacy and confidentiality.
 
-```bash yarn
-yarn global add mintlify
-```
+**Data Ownership**
 
-</CodeGroup>
+- **Full Customer Control:** Customers retain **full ownership** of all their data, including inputs (e.g., support chat logs) and outputs.
+- **No Unauthorized Use:** Data is not used beyond delivering the Services.
 
-**Step 2**: Navigate to the docs directory (where the `docs.json` file is located) and execute the following command:
+**Confidentiality**
 
-```bash
-mintlify dev
-```
+- **Strict Confidentiality Agreements:** All personnel handling customer data sign strict **confidentiality agreements**.
+- **No Data Access:** Customer data is not accessed, viewed, or used beyond what is necessary to operate the Service.
 
-A local preview of your documentation will be available at `http://localhost:3000`.
+**Third-Party Data Use**
 
-### Custom Ports
+- **No Model Training:** Data sent to third-party AI tools is strictly for **real-time processing** and not used for model training.
+  - **Controlled Usage: **Customer data shared with third-party AI tools is used strictly for real-time processing.
+  - **No Storage or Training:** Third-party tools do not store or train their models on customer data.
+- **Explicit Consent:** We do not share data with third parties without **explicit consent**, except as required by law.
 
-By default, Mintlify uses port 3000. You can customize the port Mintlify runs on by using the `--port` flag. To run Mintlify on port 3333, for instance, use this command:
+**Data Retention and Deletion**
 
-```bash
-mintlify dev --port 3333
-```
+- **Retention Periods:** Customer data is retained **only as long as necessary** or as required by law.
+- **Deletion Upon Request:** Customers can request **data deletion** at any time, and we will comply promptly.
 
-If you attempt to run Mintlify on a port that's already in use, it will use the next available port:
+**Customer Control**
 
-```md
-Port 3000 is already in use. Trying 3001 instead.
-```
+- **Access and Review:** Customers can access and review their data.
+- **Correction Rights:** Customers can correct inaccuracies.
+- **Data Deletion:** Customers may request deletion of their data, and we will ensure compliance.
 
-## Mintlify Versions
+**Limitations of Use**
 
-Please note that each CLI release is associated with a specific version of Mintlify. If your local website doesn't align with the production version, please update the CLI:
+- **Prohibited Activities:** Customers are prohibited from using our platform for illegal activities, submitting sensitive personal data, or operating in high-risk environments.
 
-<CodeGroup>
+### Major Technology Level Protections [Planned]
 
-```bash npm
-npm i -g mintlify@latest
-```
+**Data Encryption**
 
-```bash yarn
-yarn global upgrade mintlify
-```
+- **At Rest and In Transit:** All data is encrypted using **AES-256** encryption while stored and **SSL/TLS protocols** during transmission to safeguard against unauthorized access.
 
-</CodeGroup>
+**PII Handling and Scrubbing**
 
-## Validating Links
+- **PII Scrubbing:** Personally Identifiable Information (PII) is automatically detected and **masked** wherever possible during processing.
+- **Data Minimization:** Only essential data is retained to deliver our services, and unnecessary personal information is not collected or stored.
 
-The CLI can assist with validating reference links made in your documentation. To identify any broken links, use the following command:
+**Data Anonymization**
 
-```bash
-mintlify broken-links
-```
+- **Anonymized Processing:** Customer support data is anonymized where feasible to **remove identifying details** before analysis or processing.
+- **Aggregated Insights:** Any reporting or insights derived from data are **fully aggregated and anonymized**, ensuring no individual is identifiable.
 
-## Deployment
+**Access Control and Authentication**
 
-<Tip>
-  Unlimited editors available under the [Pro
-  Plan](https://mintlify.com/pricing) and above.
-</Tip>
+- **Role-Based Access (RBAC):** Access to data is restricted to authorized personnel based on roles and responsibilities.
+- **Multi-Factor Authentication (MFA):** All system access requires MFA for enhanced security.
+- **Audit Logs:** All data access and activity are logged for transparency and accountability.
 
-If the deployment is successful, you should see the following:
+### Compliance [Future]
 
-<Frame>
-  <img src="/images/checks-passed.png" style={{ borderRadius: '0.5rem' }} />
-</Frame>
+Compliance demonstrates our commitment to following recognized security standards and regulations.
 
-## Code Formatting
+**SOC 2 Compliance (Future Goal)**
 
-We suggest using extensions on your IDE to recognize and format MDX. If you're a VSCode user, consider the [MDX VSCode extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) for syntax highlighting, and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for code formatting.
+- **SOC 2 Focus Areas:** Pursuing SOC 2 compliance to ensure robust controls around:
+  - **Security:** Protection from unauthorized access.
+  - **Availability:** Service uptime and system performance.
+  - **Confidentiality:** Restricted access to sensitive data.
+  - **Processing Integrity:** Reliable and accurate processing.
 
-## Troubleshooting
+_Note:_ Compliance certifications represent best practices but are part of our broader commitment to comprehensive security and data protection. For enterprises - if this is an absolute necessity for you, we can look to fast track these items.
 
-<AccordionGroup>
-  <Accordion title='Error: Could not load the "sharp" module using the darwin-arm64 runtime'>
+### Important Links
 
-    This may be due to an outdated version of node. Try the following:
-    1. Remove the currently-installed version of mintlify: `npm remove -g mintlify`
-    2. Upgrade to Node v19 or higher.
-    3. Reinstall mintlify: `npm install -g mintlify`
-  </Accordion>
+Privacy Policy - https://usejina.com/privacy
 
-  <Accordion title="Issue: Encountering an unknown error">
-  
-    Solution: Go to the root of your device and delete the \~/.mintlify folder. Afterwards, run `mintlify dev` again.
-  </Accordion>
-</AccordionGroup>
-
-Curious about what changed in the CLI version? [Check out the CLI changelog.](https://www.npmjs.com/package/mintlify?activeTab=versions)
+Terms of Service - https://usejina.com/terms
