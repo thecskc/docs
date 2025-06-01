@@ -1,5 +1,35 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: "Overview"
+description: "Prompting is key to getting Jina do what you want"
 ---
 
+Clear prompts ensure Jina accurately achieves your intended outcomes. Jina accommodates both exploratory and explicit testing.
+
+- **Exploratory**: Jina autonomously explores multiple paths to achieve a goal. Ideal for broad goal-based testing (e.g., verifying all valid checkout flows in an e-commerce scenario).
+- **Explicit**: Focuses precisely on one granular flow for highly targeted tests.
+
+## **Explicit prompts**:
+
+Clearly identify UI elements by location and context. 
+
+Example: "Click the submit button in the top right corner, next to the info card." 
+
+This provides specific, relational context for precision.
+
+## **Exploratory prompts**:
+
+Clearly define the objective. Example: "Go through the buying flow and purchase a t-shirt." Always maintain a singular, clear goal per test scenario.
+
+For multiple objectives, split into separate test cases to ensure clarity and accuracy.
+
+## **Assertions**:
+
+Always explicitly state assertions in natural language using terms like "Verify" or "Make sure." This clarity allows Jina to determine pass/fail outcomes.
+
+Limit each test to a single assertion. Multiple assertions indicate the need to separate into distinct test cases.
+
+<Info>
+  **Need assistance?**
+
+  Reach out directly to our team for support and we can help you design prompts well to ensure success
+</Info>
