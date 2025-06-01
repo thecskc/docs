@@ -20,6 +20,12 @@
               "quickstart",
               "development"
             ]
+          },
+          {
+            "group":"Prompting Guide",
+            "pages":[
+              "prompting/overview"
+            ]
           }
         ]
       }
