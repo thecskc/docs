@@ -1,0 +1,23 @@
+---
+title: "How Test Cases Work in Jina"
+---
+
+# Test Case
+
+A Test Case defines your testing objective and the specific steps you want Jina to follow.
+
+When you set up a Test Case, Jina generates multiple **Test Flows** to explore different ways of achieving your goal. Each Test Flow represents a unique path or scenario for testing your app.
+
+Behind the scenes, each Test Flow version is automatically turned into a **Test Script** by Jina. You can execute these Test Flows multiple times—manually, scheduled, or integrated into your CI/CD pipeline.
+
+# Version Changes
+
+When your website or application changes, updating your tests is straightforward:
+
+- Simply re-run the affected Test Flow. Jina automatically adjusts and generates a new Test Flow version tailored to your updated app.
+- The updated Test Flow again translates into a fresh Test Script internally.
+
+If necessary, you can also create an entirely new Test Case at the top level to regenerate all associated Test Flows.
+
+import { useJinaFlowDiagram } from "/snippets/flow-diagram.mdx"
+<useJinaFlowDiagram/>

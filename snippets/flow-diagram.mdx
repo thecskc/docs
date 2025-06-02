@@ -1,0 +1,620 @@
+export function useJinaFlowDiagram() {
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null)
+
+  const Card = ({ children, className = "", ...props }) => (
+    <div className={`bg-white rounded-lg border shadow-sm ${className}`} {...props}>
+      {children}
+    </div>
+  )
+
+  const CardHeader = ({ children, className = "" }) => <div className={`p-4 pb-2 ${className}`}>{children}</div>
+
+  const CardTitle = ({ children, className = "" }) => (
+    <h3 className={`text-sm font-semibold leading-none tracking-tight ${className}`}>{children}</h3>
+  )
+
+  const CardDescription = ({ children, className = "" }) => (
+    <p className={`text-xs text-gray-600 mt-1 ${className}`}>{children}</p>
+  )
+
+  const CardContent = ({ children, className = "" }) => <div className={`p-4 pt-0 ${className}`}>{children}</div>
+
+  const Badge = ({ children, variant = "default", className = "" }) => {
+    const baseClasses = "inline-flex items-center rounded-full px-2 py-1 text-xs font-medium"
+    const variantClasses = {
+      default: "bg-gray-100 text-gray-800",
+      outline: "border border-gray-200 bg-white text-gray-700",
+      secondary: "bg-gray-100 text-gray-800",
+    }
+
+    return <span className={`${baseClasses} ${variantClasses[variant]} ${className}`}>{children}</span>
+  }
+
+  const Button = ({ children, size = "default", variant = "default", className = "", ...props }) => {
+    const baseClasses =
+      "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+    const sizeClasses = {
+      default: "h-10 py-2 px-4 text-sm",
+      sm: "h-8 px-3 text-xs",
+    }
+    const variantClasses = {
+      default: "bg-blue-600 text-white hover:bg-blue-700",
+      outline: "border border-gray-300 bg-white hover:bg-gray-50",
+    }
+
+    return (
+      <button className={`${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`} {...props}>
+        {children}
+      </button>
+    )
+  }
+
+  // Icon components
+  const FileCode = ({ className = "" }) => (
+    <svg className={`w-4 h-4 ${className}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+    </svg>
+  )
+
+  const GitBranch = ({ className = "" }) => (
+    <svg className={`w-4 h-4 ${className}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M6 3v12M18 9a3 3 0 100-6 3 3 0 000 6zM6 21a3 3 0 100-6 3 3 0 000 6zM18 21a3 3 0 100-6 3 3 0 000 6zM18 15v-6"
+      />
+    </svg>
+  )
+
+  const Repeat = ({ className = "" }) => (
+    <svg className={`w-4 h-4 ${className}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+      />
+    </svg>
+  )
+
+  const Play = ({ className = "" }) => (
+    <svg className={`w-4 h-4 ${className}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10v4a2 2 0 002 2h2a2 2 0 002-2v-4M9 10V9a2 2 0 012-2h2a2 2 0 012 2v1"
+      />
+    </svg>
+  )
+
+  const Calendar = ({ className = "" }) => (
+    <svg className={`w-4 h-4 ${className}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+      />
+    </svg>
+  )
+
+  const DiagramComponent = () => (
+    <div className="relative w-full h-[1200px] bg-gray-50 overflow-hidden rounded-lg border">
+      {/* Legend */}
+      <div className="absolute top-4 left-4 z-20 bg-white p-4 rounded-lg shadow-lg border max-w-sm">
+        <h2 className="text-lg font-bold mb-3">Jina Test Flow Architecture</h2>
+        <div className="space-y-2 text-sm">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-blue-50 border-2 border-blue-200 rounded"></div>
+            <span>Test Case - Define objectives</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-green-50 border-2 border-green-200 rounded"></div>
+            <span>Test Flow - AI-generated variations</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-purple-50 border-2 border-purple-200 rounded"></div>
+            <span>Version - Adaptable to site changes</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-orange-50 border-2 border-orange-200 rounded"></div>
+            <span>Script - Executable automation</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-gray-50 border-2 border-gray-200 rounded"></div>
+            <span>Execution - Multiple run options</span>
+          </div>
+        </div>
+      </div>
+
+      {/* SVG for connections */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#6b7280" />
+          </marker>
+        </defs>
+
+        {/* Test Case to Test Flows */}
+        <path d="M 520 140 L 220 240" stroke="#3b82f6" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 520 140 L 520 240" stroke="#3b82f6" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 520 140 L 820 240" stroke="#3b82f6" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+
+        {/* Test Flows to Versions */}
+        <path d="M 220 340 L 180 440" stroke="#10b981" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 220 340 L 180 580" stroke="#10b981" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 520 340 L 480 440" stroke="#10b981" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 520 340 L 480 580" stroke="#10b981" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 820 340 L 780 440" stroke="#10b981" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 820 340 L 780 580" stroke="#10b981" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+
+        {/* Versions to Scripts */}
+        <path d="M 180 540 L 180 720" stroke="#8b5cf6" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 180 680 L 180 860" stroke="#8b5cf6" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 480 540 L 480 720" stroke="#8b5cf6" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 480 680 L 480 860" stroke="#8b5cf6" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 780 540 L 780 720" stroke="#8b5cf6" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+        <path d="M 780 680 L 780 860" stroke="#8b5cf6" strokeWidth="2" fill="none" markerEnd="url(#arrowhead)" />
+
+        {/* Scripts to Execution */}
+        <path
+          d="M 280 780 L 1020 780"
+          stroke="#f97316"
+          strokeWidth="2"
+          fill="none"
+          strokeDasharray="5,5"
+          markerEnd="url(#arrowhead)"
+        />
+        <path
+          d="M 580 780 L 1020 880"
+          stroke="#f97316"
+          strokeWidth="2"
+          fill="none"
+          strokeDasharray="5,5"
+          markerEnd="url(#arrowhead)"
+        />
+        <path
+          d="M 880 780 L 1020 980"
+          stroke="#f97316"
+          strokeWidth="2"
+          fill="none"
+          strokeDasharray="5,5"
+          markerEnd="url(#arrowhead)"
+        />
+      </svg>
+
+      {/* Test Case */}
+      <div className="absolute" style={{ left: "400px", top: "50px", zIndex: 10 }}>
+        <Card className="w-80 border-2 border-blue-200 bg-blue-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-blue-800">
+              <FileCode />
+              Test Case
+            </CardTitle>
+            <CardDescription className="text-blue-600">Define objectives and steps for Jina</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <p className="text-sm font-medium">Example: User Login Flow</p>
+              <p className="text-xs text-gray-600">Steps: Navigate to login → Enter credentials → Verify dashboard</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Test Flows */}
+      <div className="absolute" style={{ left: "100px", top: "240px", zIndex: 10 }}>
+        <Card className="w-72 border-2 border-green-200 bg-green-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-green-800">
+              <GitBranch />
+              Test Flow A
+            </CardTitle>
+            <CardDescription className="text-green-600">Generated by Jina AI</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="outline" className="text-xs">
+                Auto-generated
+              </Badge>
+              <p className="text-xs text-gray-600">Intelligent test flow variation</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "400px", top: "240px", zIndex: 10 }}>
+        <Card className="w-72 border-2 border-green-200 bg-green-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-green-800">
+              <GitBranch />
+              Test Flow B
+            </CardTitle>
+            <CardDescription className="text-green-600">Generated by Jina AI</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="outline" className="text-xs">
+                Auto-generated
+              </Badge>
+              <p className="text-xs text-gray-600">Intelligent test flow variation</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "700px", top: "240px", zIndex: 10 }}>
+        <Card className="w-72 border-2 border-green-200 bg-green-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-green-800">
+              <GitBranch />
+              Test Flow C
+            </CardTitle>
+            <CardDescription className="text-green-600">Generated by Jina AI</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="outline" className="text-xs">
+                Auto-generated
+              </Badge>
+              <p className="text-xs text-gray-600">Intelligent test flow variation</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Test Flow Versions */}
+      <div className="absolute" style={{ left: "50px", top: "440px", zIndex: 10 }}>
+        <Card className="w-64 border-2 border-purple-200 bg-purple-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-purple-800">
+              <Repeat />
+              Version 1.0
+            </CardTitle>
+            <CardDescription className="text-purple-600">Initial version</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="secondary" className="text-xs">
+                Active
+              </Badge>
+              <div className="flex gap-1">
+                <Button size="sm" variant="outline" className="h-6 text-xs">
+                  <Play className="h-3 w-3 mr-1" />
+                  Run
+                </Button>
+                <Button size="sm" variant="outline" className="h-6 text-xs">
+                  <Calendar className="h-3 w-3 mr-1" />
+                  Schedule
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "50px", top: "580px", zIndex: 10 }}>
+        <Card className="w-64 border-2 border-purple-200 bg-purple-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-purple-800">
+              <Repeat />
+              Version 1.1
+            </CardTitle>
+            <CardDescription className="text-purple-600">Updated for site changes</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="secondary" className="text-xs">
+                Active
+              </Badge>
+              <div className="flex gap-1">
+                <Button size="sm" variant="outline" className="h-6 text-xs">
+                  <Play className="h-3 w-3 mr-1" />
+                  Run
+                </Button>
+                <Button size="sm" variant="outline" className="h-6 text-xs">
+                  <Calendar className="h-3 w-3 mr-1" />
+                  Schedule
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "350px", top: "440px", zIndex: 10 }}>
+        <Card className="w-64 border-2 border-purple-200 bg-purple-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-purple-800">
+              <Repeat />
+              Version 1.0
+            </CardTitle>
+            <CardDescription className="text-purple-600">Initial version</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="secondary" className="text-xs">
+                Active
+              </Badge>
+              <div className="flex gap-1">
+                <Button size="sm" variant="outline" className="h-6 text-xs">
+                  <Play className="h-3 w-3 mr-1" />
+                  Run
+                </Button>
+                <Button size="sm" variant="outline" className="h-6 text-xs">
+                  <Calendar className="h-3 w-3 mr-1" />
+                  Schedule
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "350px", top: "580px", zIndex: 10 }}>
+        <Card className="w-64 border-2 border-purple-200 bg-purple-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-purple-800">
+              <Repeat />
+              Version 1.1
+            </CardTitle>
+            <CardDescription className="text-purple-600">Updated for site changes</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="secondary" className="text-xs">
+                Active
+              </Badge>
+              <div className="flex gap-1">
+                <Button size="sm" variant="outline" className="h-6 text-xs">
+                  <Play className="h-3 w-3 mr-1" />
+                  Run
+                </Button>
+                <Button size="sm" variant="outline" className="h-6 text-xs">
+                  <Calendar className="h-3 w-3 mr-1" />
+                  Schedule
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "650px", top: "440px", zIndex: 10 }}>
+        <Card className="w-64 border-2 border-purple-200 bg-purple-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-purple-800">
+              <Repeat />
+              Version 1.0
+            </CardTitle>
+            <CardDescription className="text-purple-600">Initial version</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="outline" className="text-xs bg-gray-100">
+                Deprecated
+              </Badge>
+              <div className="flex gap-1">
+                <Button size="sm" variant="outline" className="h-6 text-xs opacity-50" disabled>
+                  <Play className="h-3 w-3 mr-1" />
+                  Run
+                </Button>
+                <Button size="sm" variant="outline" className="h-6 text-xs opacity-50" disabled>
+                  <Calendar className="h-3 w-3 mr-1" />
+                  Schedule
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "650px", top: "580px", zIndex: 10 }}>
+        <Card className="w-64 border-2 border-purple-200 bg-purple-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-purple-800">
+              <Repeat />
+              Version 2.0
+            </CardTitle>
+            <CardDescription className="text-purple-600">Major update</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="secondary" className="text-xs">
+                Active
+              </Badge>
+              <div className="flex gap-1">
+                <Button size="sm" variant="outline" className="h-6 text-xs">
+                  <Play className="h-3 w-3 mr-1" />
+                  Run
+                </Button>
+                <Button size="sm" variant="outline" className="h-6 text-xs">
+                  <Calendar className="h-3 w-3 mr-1" />
+                  Schedule
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Test Scripts */}
+      <div className="absolute" style={{ left: "80px", top: "720px", zIndex: 10 }}>
+        <Card className="w-56 border-2 border-orange-200 bg-orange-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-orange-800">
+              <FileCode />
+              Test Script
+            </CardTitle>
+            <CardDescription className="text-orange-600">Underlying automation</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="outline" className="text-xs bg-orange-100">
+                Auto-written
+              </Badge>
+              <p className="text-xs text-gray-600">Executable test code</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "80px", top: "860px", zIndex: 10 }}>
+        <Card className="w-56 border-2 border-orange-200 bg-orange-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-orange-800">
+              <FileCode />
+              Test Script
+            </CardTitle>
+            <CardDescription className="text-orange-600">Underlying automation</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="outline" className="text-xs bg-orange-100">
+                Auto-written
+              </Badge>
+              <p className="text-xs text-gray-600">Executable test code</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "380px", top: "720px", zIndex: 10 }}>
+        <Card className="w-56 border-2 border-orange-200 bg-orange-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-orange-800">
+              <FileCode />
+              Test Script
+            </CardTitle>
+            <CardDescription className="text-orange-600">Underlying automation</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="outline" className="text-xs bg-orange-100">
+                Auto-written
+              </Badge>
+              <p className="text-xs text-gray-600">Executable test code</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "380px", top: "860px", zIndex: 10 }}>
+        <Card className="w-56 border-2 border-orange-200 bg-orange-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-orange-800">
+              <FileCode />
+              Test Script
+            </CardTitle>
+            <CardDescription className="text-orange-600">Underlying automation</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="outline" className="text-xs bg-orange-100">
+                Auto-written
+              </Badge>
+              <p className="text-xs text-gray-600">Executable test code</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "680px", top: "720px", zIndex: 10 }}>
+        <Card className="w-56 border-2 border-orange-200 bg-orange-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-orange-800">
+              <FileCode />
+              Test Script
+            </CardTitle>
+            <CardDescription className="text-orange-600">Underlying automation</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="outline" className="text-xs bg-orange-100">
+                Auto-written
+              </Badge>
+              <p className="text-xs text-gray-600">Executable test code</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "680px", top: "860px", zIndex: 10 }}>
+        <Card className="w-56 border-2 border-orange-200 bg-orange-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-orange-800">
+              <FileCode />
+              Test Script
+            </CardTitle>
+            <CardDescription className="text-orange-600">Underlying automation</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Badge variant="outline" className="text-xs bg-orange-100">
+                Auto-written
+              </Badge>
+              <p className="text-xs text-gray-600">Executable test code</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Execution Options */}
+      <div className="absolute" style={{ left: "1020px", top: "750px", zIndex: 10 }}>
+        <Card className="w-48 border-2 border-gray-200 bg-gray-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-gray-800 text-sm">
+              <Play />
+              Manual Run
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Badge variant="outline" className="text-xs">
+              On-demand
+            </Badge>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "1020px", top: "850px", zIndex: 10 }}>
+        <Card className="w-48 border-2 border-gray-200 bg-gray-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-gray-800 text-sm">
+              <Calendar />
+              Scheduled
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Badge variant="outline" className="text-xs">
+              Daily/Weekly
+            </Badge>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="absolute" style={{ left: "1020px", top: "950px", zIndex: 10 }}>
+        <Card className="w-48 border-2 border-gray-200 bg-gray-50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-gray-800 text-sm">
+              <GitBranch />
+              CI/CD
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Badge variant="outline" className="text-xs">
+              On deployment
+            </Badge>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+
+  return {
+    JinaFlowDiagram: DiagramComponent,
+    hoveredNode,
+    setHoveredNode,
+  }
+}
