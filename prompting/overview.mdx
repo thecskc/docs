@@ -8,25 +8,21 @@ Clear prompts ensure Jina accurately achieves your intended outcomes. Jina accom
 - **Exploratory**: Jina autonomously explores multiple paths to achieve a goal. Ideal for broad goal-based testing (e.g., verifying all valid checkout flows in an e-commerce scenario).
 - **Explicit**: Focuses precisely on one granular flow for highly targeted tests.
 
-## **Explicit prompts**:
+Jina can perform both specific and exploratory testing, depending significantly on the quality and clarity of your prompts. Below is one example framework for structuring prompts. 
 
-Clearly identify UI elements by location and context. 
+You can prompt in any free-form language that feels intuitive, but having a clear structure can significantly improve your testing outcomes.
 
-Example: "Click the submit button in the top right corner, next to the info card." 
-
-This provides specific, relational context for precision.
-
-## **Exploratory prompts**:
-
-Clearly define the objective. Example: "Go through the buying flow and purchase a t-shirt." Always maintain a singular, clear goal per test scenario.
-
-For multiple objectives, split into separate test cases to ensure clarity and accuracy.
-
-## **Assertions**:
-
-Always explicitly state assertions in natural language using terms like "Verify" or "Make sure." This clarity allows Jina to determine pass/fail outcomes.
-
-Limit each test to a single assertion. Multiple assertions indicate the need to separate into distinct test cases.
+- **Context**: Provide detailed context about your product, your company, and relevant background information.
+- **Objective**: Clearly define the objective of your test. It can be beneficial to frame this as a user story for clarity.
+- **Instructions**:
+  - Outline individual test steps.
+  - Use atomic instructions where relevant, such as "Click," "Type," or "Scroll."
+  - Clearly identify UI elements by their location and context. For instance, specify "Click the submit button in the top right corner, next to the info card."
+- **Assertions**:
+  - Explicitly state conditions you want Jina to verify.
+  - Clearly use keywords such as "Assert" or "Verify" to indicate assertions.
+- **Special Instructions**:
+  - Include instructions that you specifically want Jina to remember or adhere to throughout the test flow, such as handling popups (e.g., "Hit escape when a popup is encountered.") or isolating certain flows for individual treatment.
 
 <Info>
   **Need assistance?**
