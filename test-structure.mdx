@@ -1,24 +1,42 @@
 ---
-title: "Test Case Setup"
+title: "How Test Flows Work"
 ---
 
-![Flow Diagram Pn](/images/flow-diagram.png)
+![Test Flow Diagram Pn](/images/test-flow-diagram.png)
 
-# Test Case
+# Testing Flows
 
-A Test Case defines your testing objective and the specific steps you want Jina to follow.
+Testing Flows allow you to define precise test cases for Jina to execute:
 
-When you set up a Test Case, Jina generates multiple **Test Flows** to explore different ways of achieving your goal. Each Test Flow represents a unique path or scenario for testing your app.
+- **Prompt Definition**: You start by providing Jina with a prompt, including:
+  - Context about your product
+  - The overall objective of the test
+  - Detailed instructions (specific steps, assertions, or validations)
+- **Granularity**: The specificity of your instructions directly determines how detailed and granular your test case becomes.
+- **Scheduling & Authentication**: You can schedule tests to run automatically and include any necessary authentication details to ensure seamless execution.
 
-Behind the scenes, each Test Flow version is automatically turned into a **Test Script** by Jina. You can execute these Test Flows multiple times—manually, scheduled, or integrated into your CI/CD pipeline.
+# Exploration
 
-The specificity of your prompt affects how many flows Jina generates and what steps they include. But **each test flow version always executes deterministically**.
+After defining the Testing Flow, Jina automatically explores your app to refine and translate your instructions into actionable test steps:
 
-# Version Changes
+- **Automated Step Creation**: Jina generates granular, actionable test steps composed of atomic actions like clicking, typing, or navigating within your app.
+- **Assertions**: Some test steps may include assertions depending on Jina's interpretation and decisions during exploration. These assertions define conditions Jina will verify during testing.
 
-When your website or application changes, updating your tests is straightforward:
+Once generated, these test steps remain consistent and reproducible across subsequent runs unless explicitly modified or versioned.
 
-- Today, you need to manually re-run the affected Test Flow. Jina will then adjust and generate a new Test Flow version that works with your updated app. In the near future, Jina will proactively detect changes, automatically update the test flow, and either notify you or request your approval—making the process even more hands-off.
-- The updated Test Flow again translates into a fresh Test Script internally.
+## Versioning
 
-If necessary, you can also create an entirely new Test Case at the top level to regenerate all associated Test Flows.
+Test steps are versioned explicitly:
+
+- Test steps remain unchanged between runs unless you explicitly edit the test prompt or create a new version due to updates or changes in your app.
+- Each modification or update to your Testing Flow results in a new version of the test steps, clearly separating iterations and preserving previous configurations for reference or rollback.
+
+# Test Representation
+
+Jina leverages Playwright for robust, deterministic test execution:
+
+- **Playwright Integration**: Test steps and atomic actions are executed as deterministic Playwright code. Execution is reliable and repeatable, especially when cached. Even uncached runs generate executable code, eliminating probabilistic outcomes.
+- **Vision-Based Assertions**:
+  - Assertions are initially inferred by leveraging LLMs (Large Language Models), utilizing screenshots, DOM structure, and app metadata as inputs. This approach emulates human-like evaluation, enabling verification beyond simple DOM-based checks—such as visual element presence or correctness.
+  - Avoids common brittleness associated with traditional DOM selector-based assertions, offering more flexible and robust tests, including image validations.
+  - Future support includes the ability to convert these assertions directly into Playwright assertions if preferred, providing flexibility to match your testing needs.
