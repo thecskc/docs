@@ -1,10 +1,15 @@
 ---
-title: "How Test Flows Work"
+title: "How Jina Works"
+description: "Understanding Jina's approach to AI-powered testing"
 ---
 
 ![Test Flow Diagram Pn](/images/test-flow-diagram.png)
 
-# Testing Flows
+# Our Approach
+
+Jina was made possible by recent advances in headless browsers and browser agents optimized for testing. Unlike traditional testing tools that require manually defined steps, Jina understands UI, code, and user intent to navigate applications intelligently.
+
+## Testing Flows
 
 Testing Flows allow you to define precise test cases for Jina to execute:
 
@@ -15,7 +20,7 @@ Testing Flows allow you to define precise test cases for Jina to execute:
 - **Granularity**: The specificity of your instructions directly determines how detailed and granular your test case becomes.
 - **Scheduling & Authentication**: You can schedule tests to run automatically and include any necessary authentication details to ensure seamless execution.
 
-# Exploration
+## Exploration
 
 After defining the Testing Flow, Jina automatically explores your app to refine and translate your instructions into actionable test steps:
 
@@ -31,7 +36,7 @@ Test steps are versioned explicitly:
 - Test steps remain unchanged between runs unless you explicitly edit the test prompt or create a new version due to updates or changes in your app.
 - Each modification or update to your Testing Flow results in a new version of the test steps, clearly separating iterations and preserving previous configurations for reference or rollback.
 
-# Test Representation
+## Test Execution
 
 Jina leverages Playwright for robust, deterministic test execution:
 
@@ -40,3 +45,10 @@ Jina leverages Playwright for robust, deterministic test execution:
   - Assertions are initially inferred by leveraging LLMs (Large Language Models), utilizing screenshots, DOM structure, and app metadata as inputs. This approach emulates human-like evaluation, enabling verification beyond simple DOM-based checks—such as visual element presence or correctness.
   - Avoids common brittleness associated with traditional DOM selector-based assertions, offering more flexible and robust tests, including image validations.
   - Future support includes the ability to convert these assertions directly into Playwright assertions if preferred, providing flexibility to match your testing needs.
+
+## Key Advantages
+
+- **No Selector Maintenance**: Tests don't break when your UI changes because Jina understands visual context and content, not just DOM selectors.
+- **Intelligent Navigation**: Jina can adapt to different user paths and UI states, making tests more resilient to application changes.
+- **Human-Like Testing**: By using vision and reasoning, Jina can catch visual bugs and usability issues that traditional automated tests miss.
+- **Reduced Test Maintenance**: When your application evolves, Jina can often adapt existing tests rather than requiring complete rewrites. 

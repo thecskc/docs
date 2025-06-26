@@ -1,31 +1,189 @@
 ---
 title: "Overview"
-description: "Prompting is key to getting Jina do what you want"
+description: "Prompting is key to getting Jina to do what you want"
 ---
 
-Clear prompts ensure Jina accurately achieves your intended outcomes. Jina accommodates both exploratory and explicit testing.
+Clear prompts ensure Jina accurately achieves your intended outcomes. Jina accommodates both exploratory and explicit testing approaches.
+
+## Testing Approaches
 
 - **Exploratory**: Jina autonomously explores multiple paths to achieve a goal. Ideal for broad goal-based testing (e.g., verifying all valid checkout flows in an e-commerce scenario).
 - **Explicit**: Focuses precisely on one granular flow for highly targeted tests.
 
-Jina can perform both specific and exploratory testing, depending significantly on the quality and clarity of your prompts. Below is one example framework for structuring prompts. 
+Jina can perform both specific and exploratory testing, depending significantly on the quality and clarity of your prompts.
 
-You can prompt in any free-form language that feels intuitive, but having a clear structure can significantly improve your testing outcomes.
+## Prompting Framework
+
+You can prompt Jina in any free-form language that feels intuitive. Below is one example framework for structuring prompts that has proven effective, but feel free to develop your own approach that works best for your team and testing scenarios.
+
+### Suggested Structure
 
 - **Context**: Provide detailed context about your product, your company, and relevant background information.
 - **Objective**: Clearly define the objective of your test. It can be beneficial to frame this as a user story for clarity.
-- **Instructions**:
-  - Outline individual test steps.
-  - Use atomic instructions where relevant, such as "Click," "Type," or "Scroll."
-  - Clearly identify UI elements by their location and context. For instance, specify "Click the submit button in the top right corner, next to the info card."
-- **Assertions**:
-  - Explicitly state conditions you want Jina to verify.
-  - Clearly use keywords such as "Assert" or "Verify" to indicate assertions.
-- **Special Instructions**:
-  - Include instructions that you specifically want Jina to remember or adhere to throughout the test flow, such as handling popups (e.g., "Hit escape when a popup is encountered.") or isolating certain flows for individual treatment.
+- **Instructions**: Outline individual test steps using atomic actions where relevant.
+- **Assertions**: Explicitly state conditions you want Jina to verify.
+- **Special Instructions**: Include any specific notes Jina should remember throughout the test flow.
+
+### Framework Example
+
+```
+We're testing a healthcare patient portal where users schedule appointments with different types of specialists. The system integrates with multiple clinic locations and requires insurance verification.
+
+As a patient, I want to schedule a cardiology appointment so I can receive timely medical care.
+
+- Navigate to the "Schedule Appointment" button in the top right corner
+- Select "Cardiology" from the specialty dropdown  
+- Choose the first available appointment slot
+- Fill in the reason for visit field with "Annual checkup"
+- Click "Confirm Appointment" button
+- Assert the appointment confirmation displays correct doctor and time
+- Verify the appointment appears in the user's upcoming appointments list
+- Check that confirmation email address matches user's profile
+
+Special Instructions:
+- If insurance verification popup appears, use demo insurance ID: INS12345
+- Wait up to 10 seconds for appointment slots to load
+```
+
+## Alternative Freeform Approach
+
+Many users prefer a more conversational, natural language approach:
+
+```
+Test our checkout flow by adding a product to cart and completing the purchase. Make sure to test both guest checkout and member login. Try different payment methods if available. The important thing is that users can actually complete their purchase without errors and get a proper confirmation.
+
+Use test credit card 4242424242424242 and don't worry about actual payment processing. Focus on the user experience - does everything work smoothly? Are there any confusing steps or error messages?
+```
+
+## Writing Effective Prompts
+
+Regardless of your preferred style, these principles will help you get better results:
+
+### Be Specific About UI Elements
+
+**✅ Good:**
+```
+Click the blue "Create Account" button below the password field
+Fill the "Email Address" field with test-user@example.com
+```
+
+**❌ Vague:**
+```
+Click the submit button
+Fill out the form
+```
+
+### Provide Clear Context
+
+**✅ Good:**
+```
+Context: This is an e-learning platform for corporate training. Users can enroll in courses, track progress, and take assessments. Managers can view team completion reports.
+```
+
+**❌ Poor:**
+```
+Context: Testing our app.
+```
+
+### Include Meaningful Assertions
+
+**✅ Good:**
+```
+- Assert the user is redirected to the dashboard within 3 seconds
+- Verify the welcome message displays the user's first name
+- Check that all navigation menu items are visible and clickable
+```
+
+**❌ Poor:**
+```
+- Make sure everything works
+- Check if it's good
+```
+
+## Common Scenarios
+
+### Exploratory Testing Example
+```
+Context: E-commerce checkout flow for a clothing retailer.
+Objective: Explore all valid ways customers can complete a purchase.
+Scope: Test guest checkout, member checkout, different payment methods, discount codes.
+Constraints: Don't process actual payments in production.
+
+Let Jina discover the different paths available and test the major variations to ensure customers can successfully complete purchases regardless of which route they choose.
+```
+
+### Explicit Testing Example
+```
+Test the exact user registration flow:
+1. Navigate to /signup
+2. Fill email: test-user@example.com  
+3. Fill password: SecurePass123!
+4. Click "Create Account"
+5. Verify email verification page appears
+6. Check that verification email is sent
+
+Make sure form validation works for invalid emails and weak passwords before allowing registration.
+```
+
+### Error Scenario Testing
+```
+Test how our login handles invalid credentials:
+1. Go to login page
+2. Enter wrong email/password combination
+3. Try submitting the form
+4. Verify error message appears clearly
+5. Make sure user can try again without page refresh
+6. Test that after 3 failed attempts, appropriate security measures activate
+```
+
+## Advanced Techniques
+
+### Testing Dynamic Content
+When dealing with data that changes frequently:
+```
+Special Instructions:
+- Focus on UI layout and functionality, not specific data values
+- If data appears to be loading, wait up to 10 seconds
+- Test both empty state and populated state if possible
+```
+
+### Multi-User Testing
+For collaboration features:
+```
+Context: Testing document sharing between team members.
+Instructions:
+1. Login as user1@example.com and create a shared document
+2. Switch to user2@example.com and access the shared document  
+3. Make edits as user2
+4. Switch back to user1 and verify changes are visible
+```
+
+### Mobile Responsive Testing
+```
+Context: Testing mobile checkout experience.
+Instructions: 
+1. Switch to mobile view (375px width)
+2. Complete checkout process with on-screen keyboard
+3. Test both portrait and landscape orientations
+Assertions:
+- Assert all buttons are easily tappable
+- Verify text is readable without zooming
+- Check no horizontal scrolling required
+```
+
+## Finding Your Style
+
+The key is finding a prompting style that works for your team:
+
+- **Structured teams** might prefer the formal framework approach
+- **Agile teams** might prefer conversational, freeform prompts  
+- **Technical teams** might include more specific implementation details
+- **Product teams** might focus more on user experience outcomes
+
+**Experiment with different approaches** and see what produces the most reliable and comprehensive test results for your specific application and team workflow.
 
 <Info>
   **Need assistance?**
 
-  Reach out directly to our team for support and we can help you design prompts well to ensure success
+  Our team can help you develop effective prompting strategies tailored to your product and testing goals. Reach out anytime for personalized guidance.
 </Info>

@@ -1,0 +1,307 @@
+---
+title: "Examples"
+description: "Real-world prompting examples for different applications and scenarios"
+---
+
+# Prompting Examples
+
+Real prompts from successful Jina implementations across different types of applications.
+
+## E-Commerce Applications
+
+### Complete Checkout Flow Test
+```
+Context: We're testing the checkout process for a fashion e-commerce site. Users can shop as guests or logged-in members, use multiple payment methods, and apply discount codes.
+
+Objective: As a customer, I want to successfully complete a purchase from product selection to order confirmation, testing both guest and member checkout flows.
+
+Instructions:
+1. Start on the homepage and browse to a product category (e.g., "Women's Clothing")
+2. Select a product and add it to cart
+3. Proceed to checkout
+4. Test guest checkout first:
+   - Fill in shipping information
+   - Select standard shipping
+   - Use test credit card: 4242424242424242
+   - Complete purchase
+5. Then test member checkout:
+   - Create account or login with test-member@example.com
+   - Use saved address if available
+   - Apply discount code "TEST10" if discount field exists
+   - Complete purchase with PayPal option if available
+
+Assertions:
+- Assert product successfully added to cart with correct price
+- Assert shipping calculator updates total correctly
+- Assert form validation works for required fields
+- Assert payment processing completes without errors
+- Assert order confirmation page displays with order number
+- Assert confirmation email is mentioned/shown
+
+Special Instructions:
+- If any popups appear (cookies, newsletters), dismiss them
+- Focus on the core checkout flow, don't get distracted by recommendations
+- If payment fails, note the error but don't retry multiple times
+```
+
+### Product Search and Filtering
+```
+Context: Testing search and filter functionality on an electronics e-commerce site with complex product catalogs.
+
+Objective: As a shopper, I want to find specific products using search and filters so I can quickly locate items that meet my criteria.
+
+Instructions:
+1. Navigate to the main search bar
+2. Search for "wireless headphones"
+3. Apply filters:
+   - Price range: $50-$200
+   - Brand: Any available brand filter
+   - Customer rating: 4+ stars if available
+4. Sort results by "Price: Low to High"
+5. Click on the first product in results
+6. Verify product details page loads
+7. Check if similar products are recommended
+
+Assertions:
+- Assert search returns relevant results
+- Assert filters actually modify the results shown
+- Assert sorting changes the order of products
+- Assert product detail page shows key information (price, description, reviews)
+- Assert product images load properly
+- Assert "Add to Cart" button is visible and functional
+```
+
+## SaaS Applications
+
+### User Onboarding Flow
+```
+Context: Testing the onboarding process for a project management SaaS. New users should be guided through account setup, team creation, and their first project.
+
+Objective: As a new user, I want to complete the onboarding process so I can start using the platform effectively with my team.
+
+Authentication: Use signup flow with test-newuser-[timestamp]@example.com
+
+Instructions:
+1. Complete account registration with email verification
+2. Follow onboarding wizard:
+   - Set up user profile (name, role, company)
+   - Create first team/workspace
+   - Invite team member (use test-teammate@example.com)
+   - Create first project
+   - Set up initial project structure (boards, lists, etc.)
+3. Complete any tutorial or guided tour if presented
+4. Navigate to main dashboard
+
+Assertions:
+- Assert each onboarding step saves progress correctly
+- Assert user can navigate back/forward through steps
+- Assert team creation generates proper workspace
+- Assert project creation includes default templates or structure
+- Assert dashboard shows newly created project
+- Assert navigation menu includes all expected sections
+
+Special Instructions:
+- Take time to complete each step thoroughly
+- If skip options are available, test both completing and skipping
+- Pay attention to any help text or tooltips
+```
+
+### Dashboard and Analytics Testing
+```
+Context: Testing an analytics dashboard for a marketing SaaS that displays campaign performance, user engagement metrics, and ROI calculations.
+
+Objective: As a marketing manager, I want to view and analyze campaign performance data so I can make informed decisions about my marketing strategy.
+
+Authentication: Login as marketing-demo@example.com
+
+Instructions:
+1. Navigate to main dashboard
+2. Explore different date range filters (last 7 days, 30 days, custom range)
+3. Test different metric views:
+   - Campaign performance overview
+   - Conversion funnel analysis
+   - User engagement metrics
+   - ROI/revenue tracking
+4. Try exporting data if export functionality exists
+5. Create or customize a dashboard widget if possible
+6. Test any drill-down functionality (clicking on charts for details)
+
+Assertions:
+- Assert data loads within reasonable time (under 5 seconds)
+- Assert date filters actually change the displayed data
+- Assert charts and graphs render properly
+- Assert tooltips or hover states work on data visualizations
+- Assert any export functionality generates appropriate files
+- Assert dashboard is responsive and readable
+
+Special Instructions:
+- Focus on UI functionality rather than validating specific data values
+- If data appears to be loading, wait up to 30 seconds for complex queries
+- Note any performance issues or slow loading times
+```
+
+## Content Management / Blogging
+
+### Content Creation and Publishing
+```
+Context: Testing a content management system where writers create, edit, and publish blog posts with media, SEO settings, and scheduling capabilities.
+
+Objective: As a content creator, I want to write and publish a blog post with images and proper SEO settings so readers can find and engage with my content.
+
+Authentication: Login as content-writer@example.com
+
+Instructions:
+1. Navigate to content creation area
+2. Create new blog post:
+   - Add title: "Test Blog Post - [Current Date]"
+   - Write sample content (2-3 paragraphs about any topic)
+   - Add at least one image (upload or from media library)
+   - Set SEO meta description
+   - Add tags or categories
+3. Preview the post
+4. Publish immediately or schedule for future
+5. View published post on live site
+6. Test editing the published post
+
+Assertions:
+- Assert rich text editor functions properly (bold, italics, links)
+- Assert image upload and insertion works correctly
+- Assert preview accurately represents final post
+- Assert SEO fields save properly
+- Assert published post appears on site with correct formatting
+- Assert post URL structure follows expected pattern
+
+Special Instructions:
+- Test different content formatting options (lists, headings, quotes)
+- If auto-save exists, verify it works by refreshing during editing
+- Check both desktop and mobile preview if available
+```
+
+## Financial/Fintech Applications
+
+### Account Dashboard and Transactions
+```
+Context: Testing a personal finance app where users view account balances, transaction history, and spending analytics. This is a demo environment with test data.
+
+Objective: As a user, I want to review my account activity and spending patterns so I can manage my finances effectively.
+
+Authentication: Login with fintech-demo@example.com
+
+Instructions:
+1. Navigate to account overview/dashboard
+2. Review account balances and recent transactions
+3. Use date filters to view transactions from different time periods
+4. Test transaction categorization:
+   - Find uncategorized transactions
+   - Assign categories to transactions
+   - Create custom category if possible
+5. View spending analytics or budget tracking
+6. Test any bill payment or transfer functionality (in demo mode)
+7. Download or export transaction data if available
+
+Assertions:
+- Assert account balances display clearly and prominently
+- Assert transaction list loads and displays key information
+- Assert filtering and sorting functions work properly
+- Assert category changes save and reflect in analytics
+- Assert spending charts/graphs render correctly
+- Assert any export functionality produces proper file formats
+
+Special Instructions:
+- This is a demo environment - no real financial data
+- Focus on UI functionality and user experience
+- If prompted for additional verification, use demo codes provided
+- Don't attempt actual money transfers or payments
+```
+
+## Healthcare/Medical Applications
+
+### Patient Portal Navigation
+```
+Context: Testing a patient portal where users can view medical records, schedule appointments, and communicate with healthcare providers. HIPAA-compliant demo environment.
+
+Objective: As a patient, I want to access my medical information and schedule appointments so I can manage my healthcare conveniently.
+
+Authentication: Login with patient-demo@example.com (Demo account with test medical data)
+
+Instructions:
+1. Navigate to medical records section
+2. View test results and lab reports
+3. Check appointment history and upcoming appointments
+4. Try to schedule a new appointment:
+   - Select appointment type (checkup, consultation, etc.)
+   - Choose available date/time
+   - Add reason for visit
+5. Test messaging functionality with healthcare provider
+6. Update personal information if editable
+7. Review any billing or insurance information
+
+Assertions:
+- Assert medical records display in organized, readable format
+- Assert appointment scheduling shows available time slots
+- Assert messaging system allows sending/receiving messages
+- Assert personal information updates save properly
+- Assert all medical data appears appropriately secured/formatted
+- Assert navigation between sections works smoothly
+
+Special Instructions:
+- This uses demo medical data only - no real patient information
+- Focus on usability and accessibility of medical information
+- Test any print or download functionality for records
+- Note any security warnings or authentication prompts
+```
+
+## Mobile-Responsive Testing
+
+### Cross-Device Checkout Flow
+```
+Context: Testing mobile responsiveness of an e-commerce checkout process. Many users complete purchases on mobile devices, so the experience must be seamless.
+
+Objective: As a mobile user, I want to complete a purchase easily on my phone so I don't abandon my cart due to usability issues.
+
+Instructions:
+1. Start on mobile view (or resize browser to mobile width)
+2. Navigate to a product and add to cart
+3. Proceed through checkout process:
+   - Enter shipping information using mobile-friendly forms
+   - Test address autocomplete if available
+   - Select payment method and enter card details
+   - Review order summary
+   - Complete purchase
+4. Test both portrait and landscape orientations if possible
+5. Verify confirmation page displays properly on mobile
+
+Assertions:
+- Assert all form fields are easily tappable and properly sized
+- Assert keyboard appears correctly for different input types
+- Assert scrolling works smoothly throughout the process
+- Assert buttons and links are large enough for touch interaction
+- Assert text is readable without zooming
+- Assert checkout progress indicators work on mobile
+
+Special Instructions:
+- Pay special attention to form usability on mobile
+- Test with on-screen keyboard visible
+- Note any horizontal scrolling issues
+- Verify that all functionality from desktop is available on mobile
+```
+
+## Best Practices Demonstrated
+
+These examples show:
+- **Clear Context**: Each prompt explains the application type and business purpose
+- **Specific Objectives**: Written as user stories with clear goals
+- **Detailed Instructions**: Step-by-step actions that are easy to follow
+- **Meaningful Assertions**: Specific things to verify that matter to users
+- **Special Considerations**: Important notes about the testing environment or approach
+
+## Adapting These Examples
+
+To use these examples for your own application:
+1. Replace the context with your specific product details
+2. Modify authentication to match your test accounts
+3. Adjust the steps to match your actual user flows
+4. Update assertions to reflect your key success criteria
+5. Add any special instructions relevant to your application
+
+Need help adapting these examples for your specific use case? Our team can help you create custom prompts that match your application and testing goals. 

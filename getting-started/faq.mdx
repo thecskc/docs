@@ -1,0 +1,191 @@
+---
+title: "Frequently Asked Questions"
+description: "Common questions about using Jina for AI-powered testing"
+---
+
+## Getting Started
+
+### What type of tests is Jina a good fit for?
+
+Jina excels at functional end-to-end tests where you want to verify that your application works as intended. You can run:
+
+- **Regression tests** - Ensure existing functionality continues to work after changes
+- **New feature tests** - Validate that new features work correctly
+- **Exploratory tests** - Discover edge cases and unexpected user flows
+
+You can run all these tests either exploratory (letting Jina discover multiple paths) or deterministically (following specific step-by-step instructions).
+
+**Jina isn't ideal for cases such as:**
+- Complex data validation requiring backend data comparison with frontend displays
+- Precise counting tasks (while LLMs can count, Jina's AI-based inference doesn't provide code-level guarantees for exact numerical assertions)
+- Tests requiring direct database or API manipulation outside the browser
+
+
+
+### What's the difference between exploratory and explicit testing?
+
+- **Exploratory testing**: You give Jina a high-level goal, and it autonomously explores multiple paths to achieve it. Perfect for testing "all valid ways to complete checkout."
+- **Explicit testing**: You provide detailed step-by-step instructions for Jina to follow precisely. Ideal for testing specific user flows exactly as specified.
+
+Both approaches use natural language prompts - the difference is in how much detail and control you provide.
+
+## Technical Setup
+
+### We have a firewall for our staging/test environments. How do you handle this?
+
+To access internal environments, you can use a tunnel to create an access-controlled URL that only our agents can reach:
+
+- **Recommended**: Use Cloudflare Tunnel or ngrok for quick setup
+- **Alternative**: Set up a VPN gateway into your staging environment (requires more effort)
+
+The tunnel approach is usually the most practical solution. For stricter network constraints, our team will work with you to find the right approach.
+
+### Can I run this on-premises?
+
+Currently, Jina is cloud-based only. We require a URL that our browser agents can visit over the internet. This allows us to provide the most reliable and up-to-date testing infrastructure without requiring local setup or maintenance.
+
+### What browsers does Jina support?
+
+Jina supports Chromium-based browsers. This provides consistent, reliable test results across different environments and ensures compatibility with modern web applications.
+
+## Test Management
+
+### Can I run setup or teardown tests?
+
+While Jina doesn't directly support setup/teardown scripts, you can work around this by:
+
+1. Adding setup/teardown buttons to your application interface
+2. Having Jina click these buttons as part of the test flow
+3. Having those buttons trigger the necessary scripts
+
+This way, Jina can trigger setup and teardown operations when needed as part of the natural test flow.
+
+### How do I handle authentication in my tests?
+
+Jina integrates with most major authentication providers using their test user functionality:
+
+- **Standard auth providers** (Auth0, Clerk, Privy, Dynamic, etc.): We use dedicated test credentials
+- **Custom auth flows**: Our team will collaborate with you to define a secure integration
+- **Session persistence**: Jina maintains login state across test runs
+
+For custom 2FA or special authentication requirements, we can work with you to implement secure workarounds.
+
+### What happens when my UI changes?
+
+Unlike traditional test automation that breaks with UI changes, Jina adapts because it:
+
+- Uses vision and reasoning instead of brittle CSS selectors
+- Understands content and context, not just DOM structure
+- Can often adapt existing tests to UI changes automatically
+- Focuses on user-visible outcomes rather than technical implementation details
+
+When significant changes occur, you may need to update your test prompts, but the underlying test logic often remains valid.
+
+## Features and Capabilities
+
+### Can Jina handle file uploads and downloads?
+
+File handling capabilities are coming soon. Currently, focus on testing user flows that don't require file manipulation, or use workarounds like having files pre-staged in your test environment.
+
+### Can you handle mobile testing?
+
+Currently, Jina performs browser-based testing only. We focus on desktop and responsive web application testing through standard web browsers.
+
+### How do I test different user roles and permissions?
+
+You can test different user roles by:
+
+1. **Specifying user context** in your prompts: "Login as admin-user@example.com. This user has full administrative privileges."
+2. **Testing role-specific features**: Verify that certain features are only visible to appropriate user types
+3. **Multi-user scenarios**: Test collaboration features by switching between different user accounts during the test
+
+### Can I schedule tests to run automatically?
+
+Yes, Jina supports scheduling tests to run automatically. You can set up recurring test runs and include necessary authentication details to ensure seamless execution without manual intervention.
+
+### How do I handle dynamic content?
+
+For applications with frequently changing data:
+
+- Focus on UI layout and functionality rather than specific data values
+- Use assertions that check for data format and structure, not exact values
+- Test both empty states and populated states when possible
+- Allow reasonable wait times for content to load (typically 5-10 seconds)
+
+## Prompting and Best Practices
+
+### How do I write effective prompts for Jina?
+
+Good prompts include:
+
+- **Clear context** about your product and the testing scenario
+- **Specific objectives** written as user stories
+- **Detailed instructions** with explicit UI element references
+- **Meaningful assertions** that verify important user outcomes
+
+You can use our suggested framework or write in freeform natural language - whatever feels most intuitive for your team.
+
+### How does test versioning work?
+
+- Test steps remain unchanged between runs unless you explicitly edit the prompt
+- When you update a test prompt, Jina creates a new version
+- Previous versions are preserved for reference or rollback
+- This ensures consistency while allowing evolution of your test suite
+
+### How do I test error scenarios?
+
+Test error handling by:
+
+1. Intentionally triggering errors (invalid form data, network interruptions)
+2. Verifying appropriate error messages display
+3. Ensuring users can recover from error states
+4. Checking that errors don't break subsequent functionality
+
+Include error scenario testing in your prompts for comprehensive coverage.
+
+## Security and Data
+
+### Is my data secure with Jina?
+
+Yes, we implement comprehensive security measures:
+
+- **Data ownership**: You retain full ownership of all data
+- **Strict confidentiality**: All personnel sign confidentiality agreements
+- **No unauthorized use**: Data is only used for delivering testing services
+- **Third-party controls**: AI tools process data in real-time without storage or training
+
+See our [Security and Privacy](/platform/security-privacy) documentation for complete details.
+
+### What data does Jina access during testing?
+
+Jina only accesses what's visible in the browser during testing:
+- Screenshots for visual analysis
+- DOM structure for element identification
+- Network requests visible to the browser
+- Any data you explicitly include in test credentials
+
+Jina doesn't access backend databases, server logs, or data outside the browser context.
+
+## Support
+
+### How do I get help with writing prompts?
+
+Our team provides prompt consultation and optimization:
+
+- Review existing prompts for improvement opportunities
+- Design prompts for complex user flows
+- Create industry-specific testing scenarios
+- Train your team on effective prompting techniques
+
+Reach out anytime for personalized guidance on your testing strategy.
+
+### What if my application has unique requirements?
+
+We work closely with teams that have special requirements:
+
+- Custom authentication flows
+- Complex multi-step workflows  
+- Industry-specific compliance needs
+- Unique network or security constraints
+
+Contact our team to discuss how we can adapt Jina to your specific use case. 

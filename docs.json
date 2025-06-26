@@ -7,28 +7,34 @@
     "light": "#07C983",
     "dark": "#15803D"
   },
-  "favicon": "Jina Docs",
+  "favicon": "favicon.svg",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Platform",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": [
-              "index",
-              "our-approach",
-              "quickstart",
-              "development",
-              "test-structure"
-            ]
-          },
-          {
-            "group":"Prompting Guide",
-            "pages":[
-              "prompting/overview"
-            ]
-          }
+        "group": "Getting Started",
+        "pages": [
+          "getting-started/index",
+          "getting-started/quickstart",
+          "getting-started/faq",
+          "getting-started/troubleshooting"
+        ]
+      },
+      {
+        "group": "Core Concepts",
+        "pages": [
+          "platform/how-jina-works",
+          "platform/security-privacy",
+          "platform/authentication"
+        ]
+      },
+      {
+        "group": "Prompting",
+        "pages": [
+          "prompting/overview"
         ]
       }
     ]

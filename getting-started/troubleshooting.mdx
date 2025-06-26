@@ -1,0 +1,105 @@
+---
+title: "Troubleshooting"
+description: "Common issues and solutions when using Jina"
+---
+
+## Test Development Issues
+
+### The generated test steps don't match my expectations
+
+If Jina's exploration produces test steps that don't align with your intended test flow:
+
+**Solution**: Iterate on your prompt and re-explore the test.
+
+- **Refine your prompt**: Add more specific context, clearer instructions, or explicit assertions
+- **Be more specific**: Instead of "test checkout," try "test guest checkout with credit card payment, ensuring confirmation email is sent"
+- **Add constraints**: Include special instructions about what to avoid or focus on
+- **Re-explore**: Start a new exploration with your updated prompt
+
+Remember that prompt quality directly impacts test quality. The more specific and clear your instructions, the better Jina can understand your testing intent.
+
+### Test results are inconsistent between runs
+
+If you're seeing different outcomes across multiple test runs:
+
+**Best Practice**: Run multiple test executions to identify patterns and determine root causes.
+
+- **Look for patterns**: If an issue happens once, it might be environmental. If it happens repeatedly, investigate your application
+- **Check frequency**: Occasional failures might indicate browser or network issues. Consistent failures usually point to application problems
+- **Compare environments**: Test the same flows in different environments to isolate issues
+- **Review screenshots**: Jina provides screenshots that can help identify what went wrong
+
+## Browser and Loading Issues
+
+### Pages don't load during exploration or test runs
+
+This can occur due to headless browser limitations or network conditions.
+
+**Solutions**:
+
+1. **Restart exploration**: Run the exploration again - pages usually load correctly on retry
+2. **Check load frequency**: 
+   - **Single occurrence**: Likely a temporary Jina browser issue - no action needed
+   - **Repeated failures**: Investigate your application's loading performance or network issues
+3. **Verify your site**: Test manual loading of the same pages to ensure they're consistently accessible
+4. **Check timeouts**: Ensure your pages load within reasonable timeframes (typically under 30 seconds)
+
+**Prevention**: Optimize your test environment's network connectivity and page load performance.
+
+## Authentication and Bot Detection
+
+### Jina can't access third-party login flows or provider interfaces
+
+This typically happens when bot detection mechanisms block automated browsers.
+
+**Solutions**:
+
+1. **Disable bot detection in test environments**:
+   - Turn off bot detection with your authentication provider
+   - Disable it in your hosting provider settings
+   - Configure Cloudflare or other CDNs to allow automated traffic in staging
+   
+2. **Use test environment configurations**:
+   - Set up dedicated test/staging environments with relaxed security
+   - Use test credentials that bypass complex authentication flows
+   - Configure bypass modes for automated testing
+
+3. **IP whitelisting** (coming soon): We'll provide static IP addresses you can whitelist to ensure consistent access
+
+**Best Practice**: Maintain clean test environments specifically configured for automated testing. This provides the most consistent and reliable test outcomes.
+
+## Prompt and Test Design Issues
+
+### Jina isn't finding the right UI elements
+
+If Jina struggles to locate buttons, forms, or other interface elements:
+
+**Solutions**:
+
+- **Be more specific in prompts**: Instead of "click submit," use "click the blue 'Create Account' button below the password field"
+- **Include visual context**: Reference nearby elements, colors, or positioning
+- **Check element visibility**: Ensure the elements are actually visible and not hidden by overlays or modals
+- **Wait for loading**: Add instructions to wait for elements to appear if they load dynamically. Jina does this automatically. But if you feel the need to make this explicit, you can add also choose to do so. 
+
+
+## Best Practices for Reliable Testing
+
+### Environment setup
+
+- Use dedicated test/staging environments
+- Configure consistent test data
+- Disable bot detection and rate limiting
+- Ensure stable network connectivity
+
+### Prompt optimization
+
+- Start with simple tests and gradually add complexity
+- Be specific about UI elements and expected outcomes
+- Test prompts iteratively to refine accuracy
+
+### Test maintenance
+
+- Run tests regularly to catch issues early
+- Monitor test patterns to identify application changes
+- Update prompts when UI or flows change significantly
+- Maintain clean separation between test and production environments 
