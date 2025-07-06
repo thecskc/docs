@@ -1,0 +1,50 @@
+---
+title: "extract"
+description: "Extract data from the DOM"
+---
+
+# extract
+
+✅ **Purpose**
+
+Extracts data from the DOM using a prompt or structured schema.
+
+## 🧩 Syntax
+
+```typescript
+{
+  instruction?: string,
+  schema?: any
+}
+```
+
+## 💬 Agent Example
+
+```
+"Extract all product names on the page."
+"Use schema: { name: string, price: number }."
+```
+
+## 🛠️ Translated Primitive
+
+```typescript
+{
+  type: "extract",
+  params: {
+    instruction: "Extract all product names"
+  }
+}
+```
+
+```typescript
+{
+  type: "extract",
+  params: {
+    instruction: "Extract products with schema",
+    schema: {
+      name: "string",
+      price: "number"
+    }
+  }
+}
+``` 

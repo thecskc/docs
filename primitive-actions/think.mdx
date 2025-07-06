@@ -1,0 +1,35 @@
+---
+title: "think"
+description: "Log internal reasoning for debugging"
+---
+
+# think
+
+✅ **Purpose**
+
+Logs internal reasoning to help plan next steps (used mainly for debugging or LLM transparency).
+
+## 🧩 Syntax
+
+```typescript
+{
+  reasoning: string
+}
+```
+
+## 💬 Agent Example
+
+```
+"Let me first check if the user is logged in."
+```
+
+## 🛠️ Translated Primitive
+
+```typescript
+{
+  type: "think",
+  params: {
+    reasoning: "Check if the user is logged in before continuing"
+  }
+}
+``` 

@@ -1,0 +1,42 @@
+---
+title: "fillForm"
+description: "Fill multiple form fields"
+---
+
+# fillForm
+
+✅ **Purpose**
+
+Fills out one or more input fields in a form.
+
+## 🧩 Syntax
+
+```typescript
+{
+  fields: Array<{
+    action: string,
+    value: string
+  }>,
+  hasIframe?: boolean
+}
+```
+
+## 💬 Agent Example
+
+```
+"Fill in email as user@example.com and password as hunter2."
+```
+
+## 🛠️ Translated Primitive
+
+```typescript
+{
+  type: "fillForm",
+  params: {
+    fields: [
+      { action: "Type email", value: "user@example.com" },
+      { action: "Type password", value: "hunter2" }
+    ]
+  }
+}
+``` 

@@ -1,0 +1,38 @@
+---
+title: "actWithType"
+description: "Type into a single input field"
+---
+
+# actWithType
+
+✅ **Purpose**
+
+Types into a specific input field (single field only).
+
+## 🧩 Syntax
+
+```typescript
+{
+  action: string,
+  value: string,
+  hasIframe?: boolean
+}
+```
+
+## 💬 Agent Example
+
+```
+"Type hello world in the search box."
+```
+
+## 🛠️ Translated Primitive
+
+```typescript
+{
+  type: "actWithType",
+  params: {
+    action: "Type in search input",
+    value: "hello world"
+  }
+}
+``` 

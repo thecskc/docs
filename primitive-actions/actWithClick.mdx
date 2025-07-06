@@ -1,0 +1,47 @@
+---
+title: "actWithClick"
+description: "Click elements on the page"
+---
+
+# actWithClick
+
+✅ **Purpose**
+
+Clicks an element, optionally inside an iframe.
+
+## 🧩 Syntax
+
+```typescript
+{
+  action: string,
+  hasIframe?: boolean
+}
+```
+
+## 💬 Agent Example
+
+```
+"Click the Submit button."
+"Click 'Continue' inside the iframe."
+```
+
+## 🛠️ Translated Primitive
+
+```typescript
+{
+  type: "actWithClick",
+  params: {
+    action: "Click Submit"
+  }
+}
+```
+
+```typescript
+{
+  type: "actWithClick",
+  params: {
+    action: "Click Continue",
+    hasIframe: true
+  }
+}
+``` 

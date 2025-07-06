@@ -1,0 +1,41 @@
+---
+title: "wait"
+description: "Wait for a specified duration"
+---
+
+# wait
+
+✅ **Purpose**
+
+Waits a specified number of seconds before continuing, useful for animations, loading delays, or timing buffers.
+
+## 🧩 Syntax
+
+```typescript
+{
+  description: string,  // Why you're waiting
+  seconds: number       // How long to wait (in seconds)
+}
+```
+
+## 💬 Agent Example
+
+```
+"Wait 3 seconds for the animation to finish."
+```
+
+## 🛠️ Translated Primitive
+
+```typescript
+{
+  type: "wait",
+  params: {
+    description: "animation to finish",
+    seconds: 3
+  }
+}
+```
+
+<Tip>
+  Use wait actions sparingly and only when necessary, as they can slow down test execution.
+</Tip> 

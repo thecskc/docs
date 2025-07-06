@@ -1,0 +1,69 @@
+---
+title: "Primitive Actions"
+description: "Building blocks for Jina test cases"
+---
+
+# Primitive Actions in Jina
+
+Jina builds test cases by chaining primitive actions like clicks, navigation, assertions, and more. You can either:
+
+💬 **Talk to Jina using natural language** (Agent Mode), or
+
+🛠️ **Edit the test step directly using structured syntax** (Primitive Mode)
+
+## Available Actions
+
+<CardGroup cols={2}>
+  <Card title="wait" href="/primitive-actions/wait">
+    Wait for a specified duration
+  </Card>
+  <Card title="back" href="/primitive-actions/back">
+    Navigate back in browser history
+  </Card>
+  <Card title="forward" href="/primitive-actions/forward">
+    Move forward in browser history
+  </Card>
+  <Card title="navigate" href="/primitive-actions/navigate">
+    Load a specific URL
+  </Card>
+  <Card title="scroll" href="/primitive-actions/scroll">
+    Scroll in any direction
+  </Card>
+  <Card title="getText" href="/primitive-actions/getText">
+    Capture DOM structure and content
+  </Card>
+  <Card title="think" href="/primitive-actions/think">
+    Log internal reasoning for debugging
+  </Card>
+  <Card title="actWithClick" href="/primitive-actions/actWithClick">
+    Click elements on the page
+  </Card>
+  <Card title="fillForm" href="/primitive-actions/fillForm">
+    Fill multiple form fields
+  </Card>
+  <Card title="actWithType" href="/primitive-actions/actWithType">
+    Type into a single input field
+  </Card>
+  <Card title="extract" href="/primitive-actions/extract">
+    Extract data from the DOM
+  </Card>
+  <Card title="screenshot" href="/primitive-actions/screenshot">
+    Capture page screenshots
+  </Card>
+  <Card title="assert" href="/primitive-actions/assert">
+    Verify page conditions
+  </Card>
+</CardGroup>
+
+## How It Works
+
+Each primitive action has:
+
+- **Purpose**: What the action does
+- **Syntax**: The structured format for direct editing
+- **Agent Example**: How to describe it in natural language
+- **Translated Primitive**: How Jina converts your natural language to structured syntax
+
+<Tip>
+  You can switch between Agent Mode and Primitive Mode at any time while editing test steps.
+</Tip> 

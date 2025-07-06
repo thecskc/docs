@@ -5,46 +5,55 @@ description: "Understanding Jina's approach to AI-powered testing"
 
 ![Test Flow Diagram Pn](/images/test-flow-diagram.png)
 
-# Our Approach
+Jina is your AI QA engineer. It explores your app like a real user and builds test cases from natural language prompts. 
 
-Jina was made possible by recent advances in headless browsers and browser agents optimized for testing. Unlike traditional testing tools that require manually defined steps, Jina understands UI, code, and user intent to navigate applications intelligently.
+Here's how it works:
 
-## Testing Flows
+## 1. Test Cases Start with Exploration
 
-Testing Flows allow you to define precise test cases for Jina to execute:
+Jina doesn't require predefined scripts. It begins by exploring your app based on your prompt—simulating realistic user behavior to uncover flows.
 
-- **Prompt Definition**: You start by providing Jina with a prompt, including:
-  - Context about your product
-  - The overall objective of the test
-  - Detailed instructions (specific steps, assertions, or validations)
-- **Granularity**: The specificity of your instructions directly determines how detailed and granular your test case becomes.
-- **Scheduling & Authentication**: You can schedule tests to run automatically and include any necessary authentication details to ensure seamless execution.
+## 2. Built with Primitive Actions
 
-## Exploration
+Test cases are composed of primitive actions like click, scroll, and type.
 
-After defining the Testing Flow, Jina automatically explores your app to refine and translate your instructions into actionable test steps:
+- Each action is executed as a Playwright code snippet
+- This ensures code-level reliability and native browser control
+- [View all supported actions](/primitive-actions)
 
-- **Automated Step Creation**: Jina generates granular, actionable test steps composed of atomic actions like clicking, typing, or navigating within your app.
-- **Assertions**: Some test steps may include assertions depending on Jina's interpretation and decisions during exploration. These assertions define conditions Jina will verify during testing.
+## 3. Assertions Powered by LLMs
 
-Once generated, these test steps remain consistent and reproducible across subsequent runs unless explicitly modified or versioned.
+Assertions are generated automatically using:
 
-## Versioning
+- **The DOM** - Structural elements and content
+- **The accessibility tree** - Semantic understanding of UI components  
+- **Screenshots from the UI** - Visual validation and context
 
-Test steps are versioned explicitly:
+These inputs help Jina create intelligent, contextual checks without manual effort.
 
-- Test steps remain unchanged between runs unless you explicitly edit the test prompt or create a new version due to updates or changes in your app.
-- Each modification or update to your Testing Flow results in a new version of the test steps, clearly separating iterations and preserving previous configurations for reference or rollback.
+## 4. Fully Editable Test Steps
 
-## Test Execution
+Jina gives you full control over your test cases:
 
-Jina leverages Playwright for robust, deterministic test execution:
+- **Review and edit** each step before running
+- **Modify primitive actions** directly when needed
+- **Skip or replace** Jina-generated steps with your own
 
-- **Playwright Integration**: Test steps and atomic actions are executed as deterministic Playwright code. Execution is reliable and repeatable, especially when cached. Even uncached runs generate executable code, eliminating probabilistic outcomes.
-- **Vision-Based Assertions**:
-  - Assertions are initially inferred by leveraging LLMs (Large Language Models), utilizing screenshots, DOM structure, and app metadata as inputs. This approach emulates human-like evaluation, enabling verification beyond simple DOM-based checks—such as visual element presence or correctness.
-  - Avoids common brittleness associated with traditional DOM selector-based assertions, offering more flexible and robust tests, including image validations.
-  - Future support includes the ability to convert these assertions directly into Playwright assertions if preferred, providing flexibility to match your testing needs.
+## 5. Fast and Deterministic by Default
+
+All actions are cached at test creation for:
+
+- **Deterministic replay** - Consistent results across runs
+- **Faster execution** - No need to re-evaluate cached actions
+- **Stable references** - Reliable selectors and element targeting
+
+## 6. Self-Healing for Changing UIs
+
+When your app changes and selectors break, Jina can self-heal:
+
+- **Natural language descriptions** - Each step stores a human-readable description
+- **Dynamic element detection** - If a selector is missing, Jina re-evaluates the UI to find a matching element
+- **Adaptive testing** - Test cases adapt to new layouts and minor UI updates without requiring full rewrites
 
 ## Key Advantages
 

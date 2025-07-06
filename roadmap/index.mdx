@@ -1,0 +1,62 @@
+---
+title: "Roadmap"
+description: "Upcoming features and improvements to Jina"
+---
+
+# Roadmap: July 2025
+
+This roadmap outlines key feature updates and improvements to Jina. Each section reflects what was built or is being delivered during the given time window.
+
+## July 7 – July 18: Core Agent Enhancements and Performance Upgrades
+
+### Separation of exploration and test case creation
+
+Users now explore the app first, then convert the session into a test case. This makes it easier to refine flows before locking them into test logic. It also allows you to attach schedules, assertions, and other metadata after the test is created, instead of bundling it all into a single prompt.
+
+### Batched test runs
+
+You can now configure a set number of runs on a defined interval (e.g., 5 runs every 30 minutes). This is especially useful for identifying flaky tests or validating nondeterministic behavior.
+
+### Failure diagnostics and debugging tools
+
+Agent results now come with detailed failure reasoning:
+
+- **Infrastructure issues** (e.g., browser crash, network drop)
+- **Agent-level issues** (e.g., couldn't figure out what to do next)  
+- **Test case failures** (e.g., broken assertions or logic)
+
+Logs include DOM snapshots, network traces, and the agent's internal thought process to help you quickly understand what went wrong.
+
+### Expanded toolset for the agent — and full control for you
+
+We gave the agent more tools — [primitive actions](/primitive-actions) — so it can now handle complex flows like modals, scrollable containers, dialogs, and dynamic UI changes more reliably. The goal is to make test case creation faster and easier by having the agent learn how to interact with your app intelligently. 
+
+But humans should always have the final say. That's why these same low-level actions are also exposed to users: you can inspect, edit, or override any step during test creation for full control over how the test behaves.
+
+### Granular step editing
+
+Every test case is now editable at the step level. You can rearrange, update, or delete individual actions — or insert your own — using the full library of primitive actions. Whether you're fine-tuning the agent's output or starting from scratch, you have complete control over how the test executes.
+
+## July 18 – July 31: CI/CD Integration, Notifications, and Conversational Test Creation
+
+### Slack and Email alerts
+
+Receive notifications from Jina when test cases pass, fail, or show signs of flakiness. This helps keep QA visibility high across the team.
+
+### CI/CD pipeline integration
+
+Add Jina-managed test cases into your deployment pipeline. You'll be able to gate releases based on test results and auto-trigger runs in pre- and post-deploy stages.
+
+### Agent memory (variables)
+
+Jina will be able to remember key values during a test (e.g., form inputs, order IDs, generated tokens) and reuse them later. This unlocks more dynamic, end-to-end tests across flows.
+
+### Chat-based test case creation
+
+You'll be able to incrementally build a test case by chatting with Jina. Instead of writing a single prompt, you can guide the test case one step at a time — like managing a real QA teammate. This improves clarity, reusability, and precision for more complex scenarios.
+
+<Info>
+  **Stay Updated**
+  
+  This roadmap is updated regularly as features are delivered. Check back for the latest updates on what's coming next.
+</Info> 

@@ -1,0 +1,45 @@
+---
+title: "scroll"
+description: "Scroll in any direction"
+---
+
+# scroll
+
+✅ **Purpose**
+
+Scrolls the viewport or a modal in a direction.
+
+## 🧩 Syntax
+
+```typescript
+{
+  direction: "up" | "down" | "toTop" | "toBottom",
+  amount?: number | string,
+  isPopupOrDialog?: boolean,
+  elementDescription?: string,
+  popupCoordinates?: {
+    x: number,
+    y: number,
+    height?: number
+  }
+}
+```
+
+## 💬 Agent Example
+
+```
+"Scroll to the bottom of the modal."
+```
+
+## 🛠️ Translated Primitive
+
+```typescript
+{
+  type: "scroll",
+  params: {
+    direction: "toBottom",
+    isPopupOrDialog: true,
+    elementDescription: "confirmation popup"
+  }
+}
+``` 

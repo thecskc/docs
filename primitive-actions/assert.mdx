@@ -1,0 +1,64 @@
+---
+title: "assert"
+description: "Verify page conditions"
+---
+
+# assert
+
+✅ **Purpose**
+
+Checks that a condition on the page holds true. Supports text, visibility, count, CSS, attribute, and visual assertions.
+
+## 🧩 Syntax
+
+```typescript
+{
+  assertion: string,
+  element?: string,
+  assertionType?: "visibility" | "text" | "attribute" | "count" | "css" | "visual",
+  expectedValue?: string | number | boolean,
+  timeout?: number
+}
+```
+
+## 💬 Agent Example
+
+```
+"Check that the error message is visible."
+"Verify the button says Submit."
+"Ensure there are 3 items in the cart."
+```
+
+## 🛠️ Translated Primitive
+
+```typescript
+{
+  type: "assert",
+  params: {
+    assertion: "Error message is visible",
+    assertionType: "visibility"
+  }
+}
+```
+
+```typescript
+{
+  type: "assert",
+  params: {
+    assertion: "Button label is Submit",
+    assertionType: "text",
+    expectedValue: "Submit"
+  }
+}
+```
+
+```typescript
+{
+  type: "assert",
+  params: {
+    assertion: "Cart item count",
+    assertionType: "count",
+    expectedValue: 3
+  }
+}
+``` 
