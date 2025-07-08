@@ -41,24 +41,19 @@
         "group": "Primitive Actions",
         "pages": [
           "primitive-actions/index",
-          {
-            "group": "Actions",
-            "pages": [
-              "primitive-actions/wait",
-              "primitive-actions/back",
-              "primitive-actions/forward",
-              "primitive-actions/navigate",
-              "primitive-actions/scroll",
-              "primitive-actions/getText",
-              "primitive-actions/think",
-              "primitive-actions/actWithClick",
-              "primitive-actions/fillForm",
-              "primitive-actions/actWithType",
-              "primitive-actions/extract",
-              "primitive-actions/screenshot",
-              "primitive-actions/assert"
-            ]
-          }
+          "primitive-actions/wait",
+          "primitive-actions/back",
+          "primitive-actions/forward",
+          "primitive-actions/navigate",
+          "primitive-actions/scroll",
+          "primitive-actions/getText",
+          "primitive-actions/think",
+          "primitive-actions/actWithClick",
+          "primitive-actions/fillForm",
+          "primitive-actions/actWithType",
+          "primitive-actions/extract",
+          "primitive-actions/screenshot",
+          "primitive-actions/assert"
         ]
       },
       {
