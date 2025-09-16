@@ -38,6 +38,12 @@
         ]
       },
       {
+        "group": "Guides",
+        "pages": [
+          "guides/index"
+        ]
+      },
+      {
         "group": "Primitive Actions",
         "pages": [
           "primitive-actions/index",
@@ -48,9 +54,9 @@
           "primitive-actions/scroll",
           "primitive-actions/getText",
           "primitive-actions/think",
-          "primitive-actions/actWithClick",
+          "primitive-actions/click",
           "primitive-actions/fillForm",
-          "primitive-actions/actWithType",
+          "primitive-actions/type",
           "primitive-actions/extract",
           "primitive-actions/screenshot",
           "primitive-actions/assert"
